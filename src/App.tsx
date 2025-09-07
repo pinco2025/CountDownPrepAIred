@@ -41,7 +41,7 @@ function App() {
   const handleSocialClick = (platform: string) => {
     const urls = {
       reddit: 'https://reddit.com/r/studytips',
-      discord: 'https://discord.gg/studyai'
+      discord: 'https://discord.gg/Dc9YApun'
     };
     // In a real implementation, these would be actual URLs
     console.log(`Navigating to ${platform}: ${urls[platform as keyof typeof urls]}`);
