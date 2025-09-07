@@ -43,8 +43,10 @@ function App() {
       reddit: 'https://reddit.com/r/studytips',
       discord: 'https://discord.gg/Dc9YApun'
     };
-    // In a real implementation, these would be actual URLs
-    console.log(`Navigating to ${platform}: ${urls[platform as keyof typeof urls]}`);
+    const url = urls[platform as keyof typeof urls];
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
   };
 
   if (isLoading) {
@@ -75,7 +77,7 @@ function App() {
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center">
               <img 
-                src="public/prepAIllogo.png" 
+                src="/prepAIllogo.png" 
                 alt="prepAIred logo" 
                 className="w-10 h-10 object-contain"
               />
