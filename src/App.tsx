@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Users, Brain, ArrowRight, Clock, Zap } from 'lucide-react';
+import { Calendar, Users, ArrowRight, Clock, Zap } from 'lucide-react';
 
 function App() {
   const [timeLeft, setTimeLeft] = useState({
@@ -73,8 +73,12 @@ function App() {
       <header className="relative z-10 p-6 md:p-8">
         <nav className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-lg flex items-center justify-center">
-              <Brain className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center">
+              <img 
+                src="/prepAIllogo.png" 
+                alt="prepAIred logo" 
+                className="w-10 h-10 object-contain"
+              />
             </div>
             <span className="text-white text-xl font-bold">prepAIred</span>
           </div>
