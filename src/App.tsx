@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-<<<<<<< HEAD
-import { Calendar, Users, ArrowRight, Clock, Zap } from 'lucide-react';
-=======
 import { Calendar, Users, Brain, ArrowRight, Clock, Zap } from 'lucide-react';
->>>>>>> 9bf0f2f3dd49a8942218f1e0a4d0772b0eae48de
 
 function App() {
   const [timeLeft, setTimeLeft] = useState({
@@ -77,13 +73,8 @@ function App() {
       <header className="relative z-10 p-6 md:p-8">
         <nav className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center space-x-3">
-<<<<<<< HEAD
-            <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center">
-              <img src="/prepAIllogo.png" alt="prepAIred Logo" className="w-10 h-10 object-contain" />
-=======
             <div className="w-10 h-10 bg-gradient-to-r from-cyan-400 to-purple-500 rounded-lg flex items-center justify-center">
               <Brain className="w-6 h-6 text-white" />
->>>>>>> 9bf0f2f3dd49a8942218f1e0a4d0772b0eae48de
             </div>
             <span className="text-white text-xl font-bold">prepAIred</span>
           </div>
@@ -108,11 +99,7 @@ function App() {
             </p>
             <div className="flex items-center justify-center space-x-2 text-white/60 text-sm md:text-base">
               <Users className="w-4 h-4" />
-<<<<<<< HEAD
               <span>Crafted By IITians</span>
-=======
-              <span>Crafted By IIT Alumni</span>
->>>>>>> 9bf0f2f3dd49a8942218f1e0a4d0772b0eae48de
             </div>
           </div>
 
@@ -229,11 +216,7 @@ function App() {
       {/* Footer */}
       <footer className="relative z-10 p-6 md:p-8 border-t border-white/10">
         <div className="max-w-7xl mx-auto text-center text-white/60 text-sm">
-<<<<<<< HEAD
-          <p>&copy; 2025 prepAIred Platform. Crafted with ❤️ by IITians.</p>
-=======
-          <p>&copy; 2025 prepAIred Platform. Crafted with ❤️ by IIT Alumni.</p>
->>>>>>> 9bf0f2f3dd49a8942218f1e0a4d0772b0eae48de
+          <p>&copy; 2025 prepAIred Platform. Crafted with ❤️.</p>
         </div>
       </footer>
     </div>
