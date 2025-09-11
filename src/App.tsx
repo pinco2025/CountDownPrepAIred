@@ -40,7 +40,7 @@ function App() {
 
   const handleSocialClick = (platform: string) => {
     const urls = {
-      reddit: 'https://www.reddit.com/r/pepAIre/',
+      reddit: 'https://www.reddit.com/r/prepAIre/',
       discord: 'https://discord.gg/Dc9YApun'
     };
     const url = urls[platform as keyof typeof urls];
