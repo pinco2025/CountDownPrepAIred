@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Users, ArrowRight, Clock, Zap } from 'lucide-react';
+import { Calendar, Users, ArrowRight, Clock, Zap, Mail, Check, AlertCircle } from 'lucide-react';
+import { supabase, type WaitlistEntry } from './lib/supabase';
 
 function App() {
   const [timeLeft, setTimeLeft] = useState({
@@ -10,6 +11,12 @@ function App() {
   });
   const [isExpired, setIsExpired] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  
+  // Waitlist state
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
 
   // Target launch date: September 21st
   const launchDate = new Date('2025-09-21T00:00:00');
@@ -40,12 +47,59 @@ function App() {
 
   const handleSocialClick = (platform: string) => {
     const urls = {
-      reddit: 'https://www.reddit.com/r/prepAIre/',
+      reddit: 'https://www.reddit.com/r/pepAIre/',
       discord: 'https://discord.gg/Dc9YApun'
     };
     const url = urls[platform as keyof typeof urls];
     if (url) {
       window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  const handleWaitlistSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email || !email.includes('@')) {
+      setErrorMessage('Please enter a valid email address');
+      setSubmitStatus('error');
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setErrorMessage('');
+
+    try {
+      const { error } = await supabase
+        .from('waitlist')
+        .insert([
+          {
+            email: email.toLowerCase().trim(),
+            created_at: new Date().toISOString()
+          }
+        ]);
+
+      if (error) {
+        if (error.code === '23505') { // Unique constraint violation
+          setErrorMessage('This email is already on the waitlist!');
+        } else {
+          setErrorMessage('Something went wrong. Please try again.');
+        }
+        setSubmitStatus('error');
+      } else {
+        setSubmitStatus('success');
+        setEmail('');
+        
+        // Reset success message after 5 seconds
+        setTimeout(() => {
+          setSubmitStatus('idle');
+        }, 5000);
+      }
+    } catch (err) {
+      setErrorMessage('Network error. Please check your connection.');
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -180,6 +234,74 @@ function App() {
               </div>
             </div>
           )}
+
+          {/* Email Waitlist */}
+          <div className="mb-12 md:mb-16">
+            <div className="glass-morphism p-8 md:p-12 rounded-3xl max-w-2xl mx-auto">
+              <div className="text-center mb-8">
+                <Mail className="w-12 h-12 text-cyan-400 mx-auto mb-4" />
+                <h3 className="text-2xl md:text-3xl font-semibold text-white mb-4">
+                  Join the Waitlist
+                </h3>
+                <p className="text-lg text-white/80">
+                  Be the first to know when prepAIred launches and get exclusive early access
+                </p>
+              </div>
+
+              <form onSubmit={handleWaitlistSubmit} className="space-y-4">
+                <div className="relative">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email address"
+                    className="w-full px-6 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent backdrop-blur-sm transition-all duration-300"
+                    disabled={isSubmitting}
+                    required
+                  />
+                </div>
+                
+                <button
+                  type="submit"
+                  disabled={isSubmitting || submitStatus === 'success'}
+                  className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? (
+                    <div className="flex items-center justify-center">
+                      <div className="animate-spin w-5 h-5 border-2 border-white/30 border-t-white rounded-full mr-3"></div>
+                      Joining Waitlist...
+                    </div>
+                  ) : submitStatus === 'success' ? (
+                    <div className="flex items-center justify-center">
+                      <Check className="w-5 h-5 mr-2" />
+                      Successfully Added!
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center">
+                      <Mail className="w-5 h-5 mr-2" />
+                      Join Waitlist
+                      <ArrowRight className="w-5 h-5 ml-2" />
+                    </div>
+                  )}
+                </button>
+
+                {/* Status Messages */}
+                {submitStatus === 'error' && (
+                  <div className="flex items-center justify-center text-red-400 text-sm mt-3">
+                    <AlertCircle className="w-4 h-4 mr-2" />
+                    {errorMessage}
+                  </div>
+                )}
+                
+                {submitStatus === 'success' && (
+                  <div className="flex items-center justify-center text-green-400 text-sm mt-3">
+                    <Check className="w-4 h-4 mr-2" />
+                    Welcome to the waitlist! We'll notify you when we launch.
+                  </div>
+                )}
+              </form>
+            </div>
+          </div>
 
           {/* Call to Action */}
           <div className="max-w-2xl mx-auto">
