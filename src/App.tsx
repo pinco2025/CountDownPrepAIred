@@ -117,12 +117,13 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-950 to-black animated-bg overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-400 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-400 rounded-full blur-3xl"></div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-black animated-bg overflow-hidden">
+      {/* Background Pattern (subtle, blended) */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Subtle radial vignette to blend background */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.04),transparent_60%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(99,102,241,0.05),transparent_50%)]"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(56,189,248,0.05),transparent_50%)]"></div>
       </div>
 
       {/* Header */}
@@ -210,6 +211,10 @@ function App() {
                 <p className="text-sm text-yellow-300/90 font-medium">
                   📧 New users should check their spam folder initially
                 </p>
+                <p className="text-sm text-orange-300/90 font-medium mt-1">
+                  ⚠️ If you use ad blockers or privacy extensions, please disable them before clicking
+                  <span className="mx-1 font-semibold">"Get Free Resources"</span>.
+                </p>
               </div>
 
               <form onSubmit={handleWaitlistSubmit} className="space-y-4">
@@ -251,9 +256,14 @@ function App() {
 
                 {/* Status Messages */}
                 {submitStatus === 'error' && (
-                  <div className="flex items-center justify-center text-red-400 text-sm mt-3">
-                    <AlertCircle className="w-4 h-4 mr-2" />
-                    {errorMessage}
+                  <div className="text-center mt-3 space-y-1">
+                    <div className="flex items-center justify-center text-red-400 text-sm">
+                      <AlertCircle className="w-4 h-4 mr-2" />
+                      {errorMessage}
+                    </div>
+                    <p className="text-xs text-white/70">
+                      Tip: Disable ad blockers/privacy extensions and try again.
+                    </p>
                   </div>
                 )}
                 
