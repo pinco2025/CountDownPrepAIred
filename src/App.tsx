@@ -105,7 +105,7 @@ function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-700 to-purple-800 flex items-center justify-center">
         <div className="glass-morphism p-8 rounded-2xl">
           <div className="flex items-center space-x-3">
             <div className="animate-spin w-6 h-6 border-2 border-white/30 border-t-white rounded-full"></div>
@@ -139,8 +139,18 @@ function App() {
             <span className="text-white text-xl font-bold">prepAIred</span>
           </div>
           
-          {/* Community Links in Navbar */}
+          {/* Navbar buttons */}
           <div className="flex items-center space-x-3">
+            <button 
+              onClick={() => {
+                const emailSection = document.getElementById('get-resources-section');
+                emailSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-400 to-purple-400 hover:from-cyan-300 hover:to-purple-300 text-white font-semibold hover:scale-105 transition-all duration-300 shadow-lg"
+            >
+              Get Free Resources
+            </button>
+            
             <button 
               onClick={() => handleSocialClick('reddit')}
               className="p-3 rounded-xl bg-white/10 hover:bg-white/20 hover:scale-105 transition-all duration-300 group shadow-lg backdrop-blur-sm border border-white/10"
@@ -186,16 +196,19 @@ function App() {
             </div>
           </div>
 
-          {/* Email Waitlist - Moved to Top */}
-          <div className="mb-12 md:mb-16">
+          {/* Get Free Resources Section */}
+          <div id="get-resources-section" className="mb-12 md:mb-16">
             <div className="glass-morphism p-8 md:p-12 rounded-3xl max-w-2xl mx-auto">
               <div className="text-center mb-8">
                 <Mail className="w-12 h-12 text-cyan-400 mx-auto mb-4" />
                 <h3 className="text-2xl md:text-3xl font-semibold text-white mb-4">
-                  Join the Waitlist
+                  Get Free Resources
                 </h3>
-                <p className="text-lg text-white/80">
-                  Be the first to know when prepAIred launches and get exclusive early access
+                <p className="text-lg text-white/80 mb-2">
+                  Get exclusive AI study materials and be the first to know when prepAIred launches
+                </p>
+                <p className="text-sm text-yellow-300/90 font-medium">
+                  📧 New users should check their spam folder initially
                 </p>
               </div>
 
@@ -220,7 +233,7 @@ function App() {
                   {isSubmitting ? (
                     <div className="flex items-center justify-center">
                       <div className="animate-spin w-5 h-5 border-2 border-white/30 border-t-white rounded-full mr-3"></div>
-                      Joining Waitlist...
+                      Getting Resources...
                     </div>
                   ) : submitStatus === 'success' ? (
                     <div className="flex items-center justify-center">
@@ -230,7 +243,7 @@ function App() {
                   ) : (
                     <div className="flex items-center justify-center">
                       <Mail className="w-5 h-5 mr-2" />
-                      Join Waitlist
+                      Get Free Resources
                       <ArrowRight className="w-5 h-5 ml-2" />
                     </div>
                   )}
@@ -247,7 +260,7 @@ function App() {
                 {submitStatus === 'success' && (
                   <div className="flex items-center justify-center text-green-400 text-sm mt-3">
                     <Check className="w-4 h-4 mr-2" />
-                    Welcome to the waitlist! We'll notify you when we launch.
+                    Success! Check your email for free resources (and spam folder just in case).
                   </div>
                 )}
               </form>

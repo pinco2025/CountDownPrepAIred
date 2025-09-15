@@ -47,23 +47,9 @@ button:focus {
   outline-offset: 2px;
 }
 
-/* Animated Background */
+/* Static Background - darker for better readability */
 .animated-bg {
-  background: linear-gradient(-45deg, #1e1b4b, #581c87, #7c2d12, #1f2937);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
-}
-
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  background: linear-gradient(135deg, #4338ca 0%, #581c87 100%);
 }
 
 /* Glass Morphism Effect */

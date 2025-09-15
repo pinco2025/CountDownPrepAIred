@@ -1,0 +1,13 @@
+project_id = "pgtrazmbujllsogayvqn"
+
+[api]
+port = 54321
+schemas = ["public", "graphql_public"]
+
+[auth]
+enabled = true
+site_url = "http://127.0.0.1:3000"
+
+[db]
+port = 54322
+major_version = 15
