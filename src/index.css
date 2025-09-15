@@ -5,9 +5,9 @@
 @tailwind utilities;
 
 :root {
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --glass-shadow: rgba(0, 0, 0, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-shadow: rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -49,7 +49,18 @@ button:focus {
 
 /* Static Background - darker for better readability */
 .animated-bg {
-  background: linear-gradient(135deg, #4338ca 0%, #581c87 100%);
+  background: linear-gradient(135deg, #1e1b4b 0%, #2e1065 100%);
+}
+
+/* Navigation Glass - darker, more distinct */
+.nav-glass {
+  background: linear-gradient(135deg, rgba(30, 27, 75, 0.75), rgba(46, 16, 101, 0.75));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 /* Glass Morphism Effect */
@@ -78,22 +89,22 @@ button:focus {
 /* Timer Specific Styles */
 .timer-glow {
   box-shadow: 
-    0 0 50px rgba(139, 92, 246, 0.3),
+    0 0 40px rgba(139, 92, 246, 0.18),
     0 8px 32px var(--glass-shadow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .timer-unit {
   position: relative;
   padding: 1rem;
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   transition: all 0.3s ease;
 }
 
 .timer-unit:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
@@ -101,7 +112,7 @@ button:focus {
 .timer-number {
   font-variant-numeric: tabular-nums;
   transition: all 0.3s ease;
-  text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+  text-shadow: 0 0 18px rgba(139, 92, 246, 0.35);
 }
 
 .pulse {
