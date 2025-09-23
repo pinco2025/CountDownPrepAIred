@@ -19,7 +19,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState('');
 
   // Target launch date: September 21st
-  const launchDate = new Date('2025-09-21T00:00:00');
+  const launchDate = new Date('2025-10-30T00:00:00');
 
   useEffect(() => {
     const timer = setInterval(() => {
