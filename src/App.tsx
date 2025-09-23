@@ -327,7 +327,7 @@ function App() {
                 
                 <div className="mt-8 flex items-center justify-center text-white/60 text-sm">
                   <Calendar className="w-4 h-4 mr-2" />
-                  <span>Target Launch: September 21st, 2025</span>
+                  <span>Target Launch: November 30th, 2025</span>
                 </div>
               </div>
             </div>
@@ -392,7 +392,7 @@ function App() {
       {/* Footer */}
       <footer className="relative z-10 p-6 md:p-8 border-t border-white/10">
         <div className="max-w-7xl mx-auto text-center text-white/60 text-sm">
-          <p>&copy; 2025 prepAIred Platform. Crafted with ❤️.</p>
+          <p>&copy; 2025 prepAIred Platform </p>
         </div>
       </footer>
     </div>
