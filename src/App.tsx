@@ -327,7 +327,7 @@ function App() {
                 
                 <div className="mt-8 flex items-center justify-center text-white/60 text-sm">
                   <Calendar className="w-4 h-4 mr-2" />
-                  <span>Target Launch: November 30th, 2025</span>
+                  <span>Target Launch: October 30th, 2025</span>
                 </div>
               </div>
             </div>
