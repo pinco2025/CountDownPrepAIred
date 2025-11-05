@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { supabase } from './lib/supabase';
-
+import Contact from './components/Contact';
 function App() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -51,6 +51,13 @@ function App() {
     }
   };
 
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact-section');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden p-4" id="page-container">
       <div className="absolute inset-0 z-0 bg-grid"></div>
@@ -66,7 +73,7 @@ function App() {
           <div className="hidden md:flex items-center space-x-6 text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">
             <a className="hover:text-primary transition-colors" href="#">Features</a>
             <a className="hover:text-primary transition-colors" href="#">Pricing</a>
-            <a className="hover:text-primary transition-colors" href="#">Contact</a>
+            <a className="hover:text-primary transition-colors" href="#" onClick={scrollToContact}>Contact</a>
           </div>
         </nav>
       </header>
@@ -120,6 +127,9 @@ function App() {
           </div>
         </div>
       </main>
+      <section id='contact-section'>
+        <Contact/>
+      </section>
       <footer className="absolute bottom-0 left-0 right-0 p-6 z-10">
         <div className="container mx-auto text-center text-xs text-text-secondary-light dark:text-text-secondary-dark">
           © 2025 prepAIred. All Rights Reserved.
