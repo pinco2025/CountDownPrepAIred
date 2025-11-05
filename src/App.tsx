@@ -54,7 +54,7 @@ function App() {
   const scrollToContact = () => {
     const contactSection = document.getElementById('contact-section');
     if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
+      contactSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   };
 
@@ -64,7 +64,7 @@ function App() {
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-background-light via-transparent to-background-light dark:from-background-dark dark:via-transparent dark:to-background-dark"></div>
       <div className="absolute top-0 -left-1/4 w-96 h-96 bg-[#38b6ff]/20 dark:bg-[#004aad]/20 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-float z-0"></div>
       <div className="absolute bottom-0 -right-1/4 w-96 h-96 bg-[#0066ff]/20 dark:bg-[#18356b]/20 rounded-full mix-blend-multiply filter blur-3xl opacity-40 animate-float animation-delay-[3s] z-0"></div>
-      <header className="absolute top-0 left-0 right-0 p-6 z-10">
+      <header className="absolute top-0 left-0 right-0 p-6 z-30 pointer-events-auto">
         <nav className="container mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
             <img alt="prepAIred logo" className="h-10 w-10" src="/logo.png"/>
@@ -73,11 +73,25 @@ function App() {
           <div className="hidden md:flex items-center space-x-6 text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">
             <a className="hover:text-primary transition-colors" href="#">Features</a>
             <a className="hover:text-primary transition-colors" href="#">Pricing</a>
-            <a className="hover:text-primary transition-colors" href="#" onClick={scrollToContact}>Contact</a>
+            <a
+              className="hover:text-primary transition-colors cursor-pointer"
+              href="#contact-section"
+              role="button"
+              tabIndex={0}
+              onClick={(e) => { e.preventDefault(); scrollToContact(); }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  scrollToContact();
+                }
+              }}
+            >
+              Contact
+            </a>
           </div>
         </nav>
       </header>
-      <main className="flex-grow flex items-center justify-center z-10">
+      <section id="waitlist-section" className="min-h-screen flex items-center justify-center z-10 w-full">
         <div className={`text-center max-w-2xl w-full px-4 ${submitStatus === 'success' ? 'form-submitted' : ''}`} id="contentWrapper">
           <div id="waitlistForm">
             <div className="animate-fadeIn">
@@ -126,9 +140,11 @@ function App() {
             </p>
           </div>
         </div>
-      </main>
-      <section id='contact-section'>
-        <Contact/>
+      </section>
+      <section id="contact-section" className="min-h-screen flex items-center justify-center w-full">
+        <div className="w-full flex items-center justify-center">
+          <Contact />
+        </div>
       </section>
       <footer className="absolute bottom-0 left-0 right-0 p-6 z-10">
         <div className="container mx-auto text-center text-xs text-text-secondary-light dark:text-text-secondary-dark">
