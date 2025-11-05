@@ -1,0 +1,2 @@
+ALTER TABLE waitlist
+ADD COLUMN exam TEXT NOT NULL;

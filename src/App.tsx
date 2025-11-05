@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import { supabase } from './lib/supabase';
 import Contact from './components/Contact';
+
 function App() {
   const [email, setEmail] = useState('');
+  const [exam, setExam] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [submittedEmail, setSubmittedEmail] = useState('');
+  const [submittedExam, setSubmittedExam] = useState('');
 
   const handleWaitlistSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (!exam) {
+      setErrorMessage('Please select an exam');
+      setSubmitStatus('error');
+      return;
+    }
+
     if (!email || !email.includes('@')) {
       setErrorMessage('Please enter a valid email address');
       setSubmitStatus('error');
@@ -27,6 +36,7 @@ function App() {
         .insert([
           {
             email: email.toLowerCase().trim(),
+            exam: exam,
             created_at: new Date().toISOString()
           }
         ]);
@@ -41,7 +51,9 @@ function App() {
       } else {
         setSubmitStatus('success');
         setSubmittedEmail(email);
+        setSubmittedExam(exam);
         setEmail('');
+        setExam('');
       }
     } catch (err) {
       setErrorMessage('Network error. Please check your connection.');
@@ -104,28 +116,47 @@ function App() {
               Unlock your potential with personalized learning paths, smart analytics, and adaptive practice tests. Be the first to know when we launch.
             </p>
             <form className="w-full max-w-lg mx-auto animate-fadeIn animate-delay-1000" id="emailForm" onSubmit={handleWaitlistSubmit}>
-              <div className="flex flex-col sm:flex-row items-center gap-3 bg-surface-light dark:bg-surface-dark p-2 rounded-lg shadow-md dark:shadow-2xl dark:shadow-black/20">
-                <div className="relative w-full">
-                  <span className="material-icons-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary-light dark:text-text-secondary-dark">email</span>
-                  <input
-                    className="w-full pl-10 pr-4 py-3 bg-transparent border-0 focus:ring-2 focus:ring-primary rounded text-text-light dark:text-text-dark placeholder-text-secondary-light dark:placeholder-text-secondary-dark"
-                    id="email"
-                    name="email"
-                    placeholder="Enter your email address"
-                    required
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+              <div className="flex flex-col items-center gap-3 bg-surface-light dark:bg-surface-dark p-2 rounded-lg shadow-md dark:shadow-2xl dark:shadow-black/20">
+                <fieldset className="w-full">
+                  <legend className="sr-only">Choose your exam</legend>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <input className="sr-only exam-radio" id="jee" name="exam" required type="radio" value="JEE" onChange={(e) => setExam(e.target.value)} />
+                      <label data-testid="jee-label" className="flex items-center justify-center w-full p-3 rounded-md border border-gray-200 dark:border-gray-700 cursor-pointer text-text-secondary-light dark:text-text-secondary-dark font-medium transition-colors" htmlFor="jee">
+                        JEE
+                      </label>
+                    </div>
+                    <div>
+                      <input className="sr-only exam-radio" id="neet" name="exam" required type="radio" value="NEET" onChange={(e) => setExam(e.target.value)} />
+                      <label data-testid="neet-label" className="flex items-center justify-center w-full p-3 rounded-md border border-gray-200 dark:border-gray-700 cursor-pointer text-text-secondary-light dark:text-text-secondary-dark font-medium transition-colors" htmlFor="neet">
+                        NEET
+                      </label>
+                    </div>
+                  </div>
+                </fieldset>
+                <div className="flex flex-col sm:flex-row items-center gap-3 w-full">
+                  <div className="relative w-full">
+                    <span className="material-icons-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary-light dark:text-text-secondary-dark">email</span>
+                    <input
+                      className="w-full pl-10 pr-4 py-3 bg-transparent border-0 focus:ring-2 focus:ring-primary rounded text-text-light dark:text-text-dark placeholder-text-secondary-light dark:placeholder-text-secondary-dark"
+                      id="email"
+                      name="email"
+                      placeholder="Enter your email address"
+                      required
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                  <button
+                    className="w-full sm:w-auto bg-primary text-white font-semibold px-6 py-3 rounded-md hover:opacity-90 transition-opacity whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
+                    type="submit"
                     disabled={isSubmitting}
-                  />
+                  >
+                    {isSubmitting ? 'Joining...' : 'Join Waitlist'}
+                  </button>
                 </div>
-                <button
-                  className="w-full sm:w-auto bg-primary text-white font-semibold px-6 py-3 rounded-md hover:opacity-90 transition-opacity whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary focus:ring-offset-surface-light dark:focus:ring-offset-surface-dark"
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? 'Joining...' : 'Join Waitlist'}
-                </button>
               </div>
               {submitStatus === 'error' && <p className="text-red-500 mt-2">{errorMessage}</p>}
             </form>
@@ -136,7 +167,7 @@ function App() {
             </div>
             <h2 className="text-2xl font-bold text-text-light dark:text-text-dark">You're on the list!</h2>
             <p className="mt-2 text-text-secondary-light dark:text-text-secondary-dark">
-              Thank you for registering. We'll notify you at <strong className="text-primary font-medium" id="submittedEmail">{submittedEmail}</strong> as soon as we're ready.
+              Thank you for registering for the {submittedExam} exam. We'll notify you at <strong className="text-primary font-medium" id="submittedEmail">{submittedEmail}</strong> as soon as we're ready.
             </p>
           </div>
         </div>
