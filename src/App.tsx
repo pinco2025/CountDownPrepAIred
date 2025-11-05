@@ -122,7 +122,7 @@ function App() {
       </main>
       <footer className="absolute bottom-0 left-0 right-0 p-6 z-10">
         <div className="container mx-auto text-center text-xs text-text-secondary-light dark:text-text-secondary-dark">
-          © 2024 prepAIred. All Rights Reserved.
+          © 2025 prepAIred. All Rights Reserved.
         </div>
       </footer>
     </div>
