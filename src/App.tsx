@@ -109,7 +109,7 @@ function App() {
             <div className="animate-fadeIn">
               <img alt="prepAIred logo large" className="mx-auto h-24 w-24 mb-6" src="/logo-large.png"/>
               <h1 className="text-4xl md:text-5xl font-bold text-text-light dark:text-text-dark leading-tight">
-                AI-Powered Prep for <span className="text-primary">JEE & NEET</span>
+                AI-Powered NOTES for <span className="text-primary">JEE & NEET</span>
               </h1>
             </div>
             <p className="mt-4 mb-8 text-lg text-text-secondary-light dark:text-text-secondary-dark animate-fadeIn animate-delay-500">
